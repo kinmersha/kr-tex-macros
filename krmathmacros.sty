@@ -1,0 +1,142 @@
+% Math and related macros for writing problem sets, reports, and the like based
+% on ones I've been putting in the preabmles of now dozens of documents for
+% years. I finally got fed up and looked up how to make it into a proper
+% package, plus added some comments.
+%
+% By Katerina Ruppenthal, 2019
+
+\ProvidesPackage{krmathmacros}[2019/10/23 v1.0 My math macros]
+
+% Package requirements
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{empheq}
+\RequirePackage{dsfont}
+\RequirePackage{color}
+% \RequirePackage{mathtools}
+
+
+% Question formatting
+\newcommand\problem[2]{\vspace{20pt}\hrule\textbf{Problem #1.} #2\vspace{.5em}
+    \hrule\vspace{15pt}}
+\renewcommand\part[2]{\textbf{(#1)} #2\\\vspace{5pt}}
+
+% Answer box. Requires package empheq.
+\newcommand{\answerbox}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{align}
+    \label{#1}#2\end{empheq}}
+
+% Better loocking code font for variables/keywords. Requires package color
+% NOTE: NOT a verbatim environment
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+
+% Theorem styles
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+
+% Basic operator macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\Exists}{\exists}
+\DeclareMathOperator{\Nexists}{\nexists}
+\DeclareMathOperator{\Forall}{\forall}
+\newcommand{\Therefore}{\operatorname{\therefore}\;}
+\DeclareMathOperator*{\sumsum}{\sum\sum}
+\DeclareMathOperator*{\R}{\mathbb{R}} % Set of all real numbers
+\DeclareMathOperator*{\Z}{\mathbb{Z}} % Set of all integers
+\newcommand{\contradiction}{
+    \mspace{4mu}\Rightarrow\mspace{-3mu} \Leftarrow\mspace{4mu}
+}
+% Double vertical bar independence symbol
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}} }
+\newcommand{\independent}{\protect\mathpalette{\protect\independenT}{\perp}}
+\newcommand{\del}{\partial}
+\DeclareMathOperator{\sign}{sign}
+% Floor and ceil require mathtools
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+% Easier and more clear way to label resistors
+\newcommand\Ohm\Omega
+
+% Fourier Transform
+\newcommand{\fourier}{\xrightarrow{\makebox[1.5em][c]{\(\mathcal{F}\)}}}
+
+
+% Functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Exponent function (for when e^{f(x)} displays too small)
+\renewcommand{\exp}[1]{\operatorname{exp}\left[#1\right]}
+
+% Partial derivative, optional args are order and function
+%   example: \pderiv[y]{x} = partial deriv of y with respect to x
+%   example: \pderiv{x} = partial deriv with respect to x
+\newcommand{\pderiv}[2][]{\frac{\partial #1}{\partial #2}}
+% Second partial, otherwise same
+\newcommand{\psecderiv}[2][]{\frac{\partial^2 #1}{{\partial #2}^2}}
+%\newcommand{\mixedpartial}[3][]{\frac{\partial^2}{\partial#1\partial#2}}
+
+% Convergence in a given form
+\newcommand{\converges}[1]{\xrightarrow{\makebox[1.5em][c]{$\scriptstyle#1$}}}
+
+% Indicator function, requires package dsfont
+\newcommand{\indic}[1]{\operatorname{\mathds{1}}_{#1}}
+
+% Distributed as symbol with argument for an overhead condition
+\newsavebox{\mybox}\newsavebox{\mysim}
+\newcommand{\distras}[1]{%
+  \savebox{\mybox}{\hbox{\kern3pt$\scriptstyle#1$\kern3pt}}%
+  \savebox{\mysim}{\hbox{$\sim$}}%
+  \mathbin{\overset{#1}{\kern\z@\resizebox{\wd\mybox}{\ht\mysim}{$\sim$}}}%
+}
+
+% Bigger dot
+\makeatletter
+\newcommand*\bdot{\mathpalette\bdot@{.5}}
+\newcommand*\bdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+
+% Population parameters and sample statistics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Expec}[1]{\operatorname{\mathbb{E}}\left[#1\right]}
+\newcommand{\E}[1]{\Expec{#1}} % Short form
+\newcommand{\Prob}[1]{\operatorname{\mathbb{P}}\left(#1\right)}
+\renewcommand{\P}[1]{\Prob{#1}} % Short form, overwrites \P for paragraph symbol
+\newcommand{\Var}[1]{\operatorname{\mathbb{V}}\left(#1\right)}
+\newcommand{\V}[1]{\Var{#1}} % Short form
+\newcommand{\Bias}[1]{\operatorname{Bias}\left(#1\right)}
+\newcommand{\MSE}[1]{\operatorname{MSE}\left(#1\right)}
+\newcommand{\Cov}[1]{\operatorname{Cov}\left(#1\right)}
+\newcommand{\Corr}[1]{\operatorname{Corr}\left(#1\right)}
+\newcommand{\mean}[1]{\mkern 1mu\overline{\mkern-1mu#1\mkern-1mu}\mkern 1mu}
+\newcommand{\supp}[1]{\operatorname{supp}\left(#1\right)}
+\newcommand{\lik}[1]{\operatorname{lik}\left(#1\right)}
+\newcommand{\loglik}[1]{\operatorname{log-lik}\left(#1\right)}
+
+% Estimators
+\newcommand{\estimator}[1]{\hat{#1}} % Generic estimator
+\newcommand{\MOM}[1]{\hat{#1}_\textit{MOM}} % Method of moments
+\newcommand{\MLE}[1]{\hat{#1}_\textit{MLE}} % Maximum likelihood
+
+
+% Probability distributions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\Bern}{Bernoulli}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Geom}{Geom}
+\DeclareMathOperator{\Exp}{Exponential}
+\DeclareMathOperator{\Norm}{\mathcal{N}}
+\DeclareMathOperator{\Pois}{Poisson}
+\DeclareMathOperator{\Unif}{Unif}
+\DeclareMathOperator{\GammaDist}{Gamma}
+\DeclareMathOperator{\Beta}{Beta}
+\DeclareMathOperator{\ChiDist}{\chi^2}
+
+
+% Lin alg macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\colvec}[2]{\begin{bmatrix}#1\\#2\end{bmatrix}}
+% \newcommand{\smallmatrix}[4]{\begin{bmatrix}#1 & #2 \\ #3 & #4\end{bmatrix}}
