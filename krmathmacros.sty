@@ -14,12 +14,15 @@
 \RequirePackage{empheq}
 \RequirePackage{dsfont}
 \RequirePackage{color}
+\RequirePackage{tensor}
 % \RequirePackage{mathtools}
 
 
 % Question formatting
-\newcommand\problem[2]{\vspace{20pt}\hrule\textbf{Problem #1.} #2\vspace{.5em}
-    \hrule\vspace{15pt}}
+\newcommand\problem[2]{\begin{minipage}{\textwidth}
+    \vspace{1em} \hrule \vspace{.5em} \textbf{Problem #1.} #2 \vspace{.5em}
+    \hrule \vspace{1em}
+\end{minipage}}
 \renewcommand\part[2]{\textbf{(#1)} #2\\\vspace{5pt}}
 
 % Answer box. Requires package empheq.
@@ -104,8 +107,9 @@
 
 % Permutation and combination macros
 % First arg: k, optional second arg: n
-\newcommand\Perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
-\newcommand\Comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+% Uses package tensor bc TeX's \prescript has wonky vertical alignment
+\newcommand\Perm[2][^n]{\tensor*[_{#2}]{P}{_{#1}}}
+\newcommand\Comb[2][^n]{\tensor*[_{#2}]{C}{_{#1}}}
 
 
 % Population parameters and sample statistics
