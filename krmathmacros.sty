@@ -37,8 +37,10 @@
 % Theorem styles
 \newtheorem{lemma}{Lemma}
 \newtheorem{corollary}{Corollary}
-\renewcommand{\qedsymbol}{$\;_\blacksquare$}
-\newcommand{\qef}{\;_\triangle}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand{\qei}{\triangle} % Quod erat inveniendum "Which was to be found"
+\newcommand{\qeisymbol}{$\qef$}
+\newcommand{\qef}{\triangle} % Quod erat faciendum "Which was to be done/made"
 \newcommand{\qefsymbol}{$\qef$}
 
 
@@ -76,6 +78,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Exponent function (for when e^{f(x)} displays too small)
 \renewcommand{\exp}[1]{\operatorname{exp}\left[#1\right]}
+
+% Derivative, optional args are order and function
+%   example: \deriv[y]{x} = deriv of y with respect to x
+%   example: \deriv{x} = deriv with respect to x
+\newcommand{\deriv}[2][]{\frac{d #1}{d #2}}
+% Second derivative, otherwise same
+\newcommand{\secderiv}[2][]{\frac{d #1}{{d #2}^2}}
 
 % Partial derivative, optional args are order and function
 %   example: \pderiv[y]{x} = partial deriv of y with respect to x
