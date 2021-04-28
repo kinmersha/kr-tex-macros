@@ -26,8 +26,8 @@
 \renewcommand\part[2]{\textbf{(#1)} #2\\\vspace{5pt}}
 
 % Answer box. Requires package empheq.
-\newcommand{\answerbox}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{align}
-    \label{#1}#2\end{empheq}}
+\newcommand{\answerbox}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{equation}
+    \label{ans:#1}#2\tag{#1}\end{empheq}}
 
 % Better looking code font for variables/keywords. Requires package color
 % NOTE: NOT a verbatim environment
@@ -59,6 +59,8 @@
 % Double vertical bar independence symbol
 \def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}} }
 \newcommand{\independent}{\protect\mathpalette{\protect\independenT}{\perp}}
+\newcommand{\st}{\operatorname{\vert}}
+\newcommand{\given}{\st} % Identical result, different name due to different context (i.e. probability statements)
 \newcommand{\del}{\partial}
 \DeclareMathOperator{\sign}{sign}
 % Floor and ceil require mathtools
